@@ -4,6 +4,7 @@
   "description": "Starter project for #electron slack user",
   "main": "main.js",
   "scripts": {
+    "start": "electron src/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/sonnyg/electron-system-care/issues"
   },
-  "homepage": "https://github.com/sonnyg/electron-system-care#readme"
+  "homepage": "https://github.com/sonnyg/electron-system-care#readme",
+  "dependencies": {
+    "electron": "^1.7.10"
+  }
 }
