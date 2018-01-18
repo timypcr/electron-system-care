@@ -45,3 +45,11 @@ function ipcRunCommand1(checked) {
 function ipcRunCommand2(checked) {
   ipcRenderer.send('run-command-2', checked)
 }
+
+ipcRenderer.on('run-command-1-result', (event, arg) => {
+  console.log(`run-command-1 exited with state: ${arg}`)
+})
+
+ipcRenderer.on('run-command-2-result', (event, arg) => {
+  console.log(`run-command-2 exited with state: ${arg}`)
+})

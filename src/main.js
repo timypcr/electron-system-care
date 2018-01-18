@@ -69,9 +69,14 @@ console.log('application started')
 const {ipcMain} = require('electron')
 ipcMain.on('run-command-1', (event, arg) => {
   console.log(`main process received request to run command 1: ${arg}`)
-  // event.sender.send('asynchronous-reply', 'pong')
+
+  // notify event dispatcher that command is done
+  event.sender.send('run-command-1-result', 0)
 })
 
 ipcMain.on('run-command-2', (event, arg) => {
     console.log(`main process received request to run command 2: ${arg}`)
+
+  // notify event dispatcher that command is done
+    event.sender.send('run-command-2-result', 0)
 })
