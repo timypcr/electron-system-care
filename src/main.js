@@ -75,33 +75,21 @@ ipcMain.on('run-command-1', (event, arg) => {
   cmd.get(
     'ls',
     function(err, data, stderr){
-        if (!err) {
-          // notify event dispatcher that command is done
-          event.sender.send('run-command-1-result', data)
-        } else {
-          // notify event dispatcher that command is done
-          event.sender.send('run-command-1-result', stderr)
-        }
+      // notify event dispatcher that command is done
+      event.sender.send('run-command-1-result', err, data, stderr)
     }
   )
 })
 
 ipcMain.on('run-command-2', (event, arg) => {
-    console.log(`main process received request to run command 2: ${arg}`)
+  console.log(`main process received request to run command 2: ${arg}`)
 
-    // this command purposefully fails to show errors
-    cmd.get(
-      `eho command 2 running with parameter: '${arg}'`,
-      function(err, data, stderr){
-        console.log(err)
-        console.log(stderr)
-          if (!err) {
-            // notify event dispatcher that command is done
-            event.sender.send('run-command-2-result', data)
-          } else {
-            // notify event dispatcher that command is done
-            event.sender.send('run-command-2-result', stderr)
-          }
-      }
-    )
+  // this command purposefully fails to show errors
+  cmd.get(
+    `eho command 2 running with parameter: '${arg}'`,
+    function(err, data, stderr){
+      // notify event dispatcher that command is done
+      event.sender.send('run-command-2-result', err, data, stderr)
+    }
+  )
 })

@@ -7,6 +7,11 @@ html {
   font-size: .8em;
 }
 
+.error {
+  color: #A11400;
+  font-weight: bold;
+}
+
 /* The switch - the box around the slider */
 .switch {
   position: relative;

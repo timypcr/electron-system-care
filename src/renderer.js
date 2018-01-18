@@ -36,11 +36,15 @@ function runCommand2(checked) {
 // =================================================
 // DOM manipulation functions
 
-function reportStatus(id, status) {
+function reportStatus(id, status, error) {
   const element = document.getElementById(id)
 
   if (element) {
-    element.innerHTML = `<p><i>command completed with status: ${status}</i></p>`
+    element.innerHTML = `<p>command completed:<i> ${status}</i></p>`
+
+    if (error) {
+      element.classList.add('error')
+    }
   } else {
     console.error(`could not find element with id: ${id}`)
   }
@@ -50,7 +54,8 @@ function runningStatus(id) {
   const element = document.getElementById(id)
 
   if (element) {
-    element.innerHTML = `<i>running...</i>`
+    element.innerHTML = `<p>running...</p>`
+    element.classList.remove('error')
   } else {
     console.error(`could not find element with id: ${id}`)
   }
@@ -73,12 +78,22 @@ function ipcRunCommand2(checked) {
   ipcRenderer.send('run-command-2', checked)
 }
 
-ipcRenderer.on('run-command-1-result', (event, arg) => {
-  console.log(`run-command-1 exited with status: ${arg}`)
-  reportStatus(status1id, arg)
+ipcRenderer.on('run-command-1-result', (event, err, data, stderr) => {
+  if (!err) {
+    console.log(`run-command-1 completed: ${data}`)
+    reportStatus(status1id, data)
+  } else {
+    console.log(`run-command-1 completed with errors: ${stderr}`)
+    reportStatus(status1id, stderr, true)
+  }
 })
 
-ipcRenderer.on('run-command-2-result', (event, arg) => {
-  console.log(`run-command-2 exited with status: ${arg}`)
-  reportStatus(status2id, arg)
+ipcRenderer.on('run-command-2-result', (event, err, data, stderr) => {
+  if (!err) {
+    console.log(`run-command-2 completed: ${data}`)
+    reportStatus(status2id, data)
+  } else {
+    console.log(`run-command-2 completed with errors: ${stderr}`)
+    reportStatus(status2id, stderr, true)
+  }
 })
