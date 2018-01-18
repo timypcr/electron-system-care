@@ -3,6 +3,10 @@ html {
   color: #FCFEFE;
 }
 
+.small-text {
+  font-size: .8em;
+}
+
 /* The switch - the box around the slider */
 .switch {
   position: relative;
