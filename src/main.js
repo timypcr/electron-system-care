@@ -16,7 +16,7 @@ function createWindow () {
   mainWindow = new BrowserWindow({width: 800, height: 600})
 
   mainWindow.toggleDevTools();
-  
+
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'main.html'),
@@ -62,3 +62,16 @@ app.on('activate', function () {
 // code. You can also put them in separate files and require them here.
 
 console.log('application started')
+
+// =================================================
+// ipc handlers - communicates with renderer process(es)
+
+const {ipcMain} = require('electron')
+ipcMain.on('run-command-1', (event, arg) => {
+  console.log(`main process received request to run command 1: ${arg}`)
+  // event.sender.send('asynchronous-reply', 'pong')
+})
+
+ipcMain.on('run-command-2', (event, arg) => {
+    console.log(`main process received request to run command 2: ${arg}`)
+})

@@ -6,6 +6,9 @@
 
 console.log('renderer process loaded')
 
+// =================================================
+// Javascript handlers
+
 /*
   Another method for this event handlers would be to use a single handler, and
   pass the data in via parameters, like so:
@@ -20,8 +23,25 @@ console.log('renderer process loaded')
 */
 function runCommand1(checked) {
   console.log(`running command 1 - checked: ${checked}`)
+
+  ipcRunCommand1(checked)
 }
 
 function runCommand2(checked) {
   console.log(`running command 2 - checked: ${checked}`)
+
+  ipcRunCommand2(checked)
+}
+
+// =================================================
+// ipc handlers - communicates with main process
+
+const {ipcRenderer} = require('electron')
+
+function ipcRunCommand1(checked) {
+  ipcRenderer.send('run-command-1', checked)
+}
+
+function ipcRunCommand2(checked) {
+  ipcRenderer.send('run-command-2', checked)
 }
