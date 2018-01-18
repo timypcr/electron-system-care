@@ -1,0 +1,19 @@
+{
+  "name": "electron-system-care",
+  "version": "1.0.0",
+  "description": "Starter project for #electron slack user",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sonnyg/electron-system-care.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sonnyg/electron-system-care/issues"
+  },
+  "homepage": "https://github.com/sonnyg/electron-system-care#readme"
+}
