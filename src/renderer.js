@@ -40,7 +40,7 @@ function reportStatus(id, status) {
   const element = document.getElementById(id)
 
   if (element) {
-    element.innerHTML = `<i>command completed with status: ${status}</i>`
+    element.innerHTML = `<p><i>command completed with status: ${status}</i></p>`
   } else {
     console.error(`could not find element with id: ${id}`)
   }

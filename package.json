@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/sonnyg/electron-system-care#readme",
   "dependencies": {
-    "electron": "^1.7.10"
+    "electron": "^1.7.10",
+    "node-cmd": "^3.0.0"
   }
 }

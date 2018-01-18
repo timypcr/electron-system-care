@@ -67,16 +67,41 @@ console.log('application started')
 // ipc handlers - communicates with renderer process(es)
 
 const {ipcMain} = require('electron')
+const cmd = require('node-cmd')
+
 ipcMain.on('run-command-1', (event, arg) => {
   console.log(`main process received request to run command 1: ${arg}`)
 
-  // notify event dispatcher that command is done
-  event.sender.send('run-command-1-result', 0)
+  cmd.get(
+    'ls',
+    function(err, data, stderr){
+        if (!err) {
+          // notify event dispatcher that command is done
+          event.sender.send('run-command-1-result', data)
+        } else {
+          // notify event dispatcher that command is done
+          event.sender.send('run-command-1-result', stderr)
+        }
+    }
+  )
 })
 
 ipcMain.on('run-command-2', (event, arg) => {
     console.log(`main process received request to run command 2: ${arg}`)
 
-  // notify event dispatcher that command is done
-    event.sender.send('run-command-2-result', 0)
+    // this command purposefully fails to show errors
+    cmd.get(
+      `eho command 2 running with parameter: '${arg}'`,
+      function(err, data, stderr){
+        console.log(err)
+        console.log(stderr)
+          if (!err) {
+            // notify event dispatcher that command is done
+            event.sender.send('run-command-2-result', data)
+          } else {
+            // notify event dispatcher that command is done
+            event.sender.send('run-command-2-result', stderr)
+          }
+      }
+    )
 })
