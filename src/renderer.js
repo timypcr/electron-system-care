@@ -34,22 +34,51 @@ function runCommand2(checked) {
 }
 
 // =================================================
+// DOM manipulation functions
+
+function reportStatus(id, status) {
+  const element = document.getElementById(id)
+
+  if (element) {
+    element.innerHTML = `<i>command completed with status: ${status}</i>`
+  } else {
+    console.error(`could not find element with id: ${id}`)
+  }
+}
+
+function runningStatus(id) {
+  const element = document.getElementById(id)
+
+  if (element) {
+    element.innerHTML = `<i>running...</i>`
+  } else {
+    console.error(`could not find element with id: ${id}`)
+  }
+}
+
+// =================================================
 // ipc handlers - communicates with main process
 
 const {ipcRenderer} = require('electron')
+const status1id = 'command-1-status'
+const status2id = 'command-2-status'
 
 function ipcRunCommand1(checked) {
+  runningStatus(status1id)
   ipcRenderer.send('run-command-1', checked)
 }
 
 function ipcRunCommand2(checked) {
+  runningStatus(status2id)
   ipcRenderer.send('run-command-2', checked)
 }
 
 ipcRenderer.on('run-command-1-result', (event, arg) => {
-  console.log(`run-command-1 exited with state: ${arg}`)
+  console.log(`run-command-1 exited with status: ${arg}`)
+  reportStatus(status1id, arg)
 })
 
 ipcRenderer.on('run-command-2-result', (event, arg) => {
-  console.log(`run-command-2 exited with state: ${arg}`)
+  console.log(`run-command-2 exited with status: ${arg}`)
+  reportStatus(status2id, arg)
 })
