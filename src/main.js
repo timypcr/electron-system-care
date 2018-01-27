@@ -13,7 +13,7 @@ let mainWindow
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600})
+  mainWindow = new BrowserWindow({width: 800, height: 600, autoHideMenuBar: true})
 
   mainWindow.toggleDevTools();
 
@@ -73,7 +73,7 @@ ipcMain.on('run-command-1', (event, arg) => {
   console.log(`main process received request to run command 1: ${arg}`)
 
   cmd.get(
-    'ls',
+    'mkdir /home/tim/test/testingswitch',
     function(err, data, stderr){
       // notify event dispatcher that command is done
       event.sender.send('run-command-1-result', err, data, stderr)
@@ -84,9 +84,8 @@ ipcMain.on('run-command-1', (event, arg) => {
 ipcMain.on('run-command-2', (event, arg) => {
   console.log(`main process received request to run command 2: ${arg}`)
 
-  // this command purposefully fails to show errors
   cmd.get(
-    `eho command 2 running with parameter: '${arg}'`,
+    'touch /home/tim/test/holyshit',
     function(err, data, stderr){
       // notify event dispatcher that command is done
       event.sender.send('run-command-2-result', err, data, stderr)
